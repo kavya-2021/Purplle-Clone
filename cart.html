@@ -7,8 +7,7 @@
     <link rel="icon" href="https://media6.ppl-media.com/mediafiles/ecomm/misc/purplle-16x16.png">
     <title>Cart</title>
     <style>
-        #mainDiv2
-        {
+        #mainDiv2{
             display: grid;
             grid-template-columns: 60% 30%;
             justify-content: center;
@@ -16,27 +15,18 @@
            
             height: 400px;
         }
-        #leftDiv
-        { 
-             
-            
-        }
-        #rightDiv
-        {
-             
-        }
-        #secureBox
-        {
+        
+        #secureBox{
             display: grid;
             grid-template-columns: 30% 70%;
             margin: 0px 40px 0px 40px;
-           
-
         }
-        #thatDiv
-        {
+
+
+        #thatDiv{
             z-index: 99;
         }
+
         #secureBox >div >img
         {
             width: 40px;
@@ -218,6 +208,7 @@
 
     var cartItem = document.getElementById("cartItem");
     var data = JSON.parse(localStorage.getItem("cartItems"));
+    let wish_Data_cart = JSON.parse(localStorage.getItem("product_wishlist")) || [];
     console.log(data)
     
     var TotalMrp = document.getElementById("TotalMrp");
@@ -231,14 +222,17 @@
      var total = 0;
      var distotal =0 ;
      var arr =[];
-        
+
+     ShowingCartOnScreen(data); // for showing onto  screen
+
+
+     function ShowingCartOnScreen(data){
+         document.querySelector("#cartItem").innerHTML = ""; // to change the contents on the screen after remove function
         data.map(function(item,index){
               // console.log(item.image_url[0])
               //console.log(item.price,item.discount)
                //console.log()
-                
-               
-              
+                          
                  
                 var div = document.createElement("div");
                 div.setAttribute("id","products");
@@ -267,25 +261,27 @@
                
                 selectQty.innerHTML = `<option>1</option><option>2</option><option>3</option><option>4</option>`
                 
-                 
-
-
                 var divButton = document.createElement("div");
                 divButton.setAttribute("id","divButton")
                 var b1 = document.createElement("button");
-                b1.innerHTML="Remove"
+                b1.innerHTML="Remove";
+                b1.onclick = () =>{
+                    removeFromCartFunc(item,index);
+                }
+
                 var dash = document.createElement("p");
                 dash.setAttribute("class","dash")
                 dash.innerHTML=`|`
                 var b2 = document.createElement("button")
-                b2.innerHTML= "Move To WhishList"
+                b2.innerHTML= "Move To WishList";
+                b2.onclick = ()=>{
+                    addTowishlistFromCart(item,index)
+                }
+
                 divButton.append(b1,dash,b2)
 
-                
                 QytDiv.append(Qty,selectQty)
                 divDetails.append(QytDiv,divButton)
-
-
 
                 var divPriceAndDiscount = document.createElement("div");
                 divPriceAndDiscount.setAttribute("class","price");
@@ -354,41 +350,40 @@
    
                     }
 
-
-              
-
-
                 div.append(divimage,divDetails,divPriceAndDiscount)
                 cartItem.append(div)
 
-
-    
         })
-    
-   
-
+     }
+        
+        
          document.getElementById("bu").addEventListener("click",function(){
              
             window.location.href="address.html"
          })
            
-        
-    
-    
-    
-    //console.log(total);
+        function  removeFromCartFunc(item,index){
+            console.log(item);
+            console.log(index);
+            data.splice(index, 1);
+            localStorage.setItem("cartItems",JSON.stringify(data));
+            ShowingCartOnScreen(data);
+            //window.location.reload();
+        }
 
-
-       
-         
-         
-             
-          
-         
-               //console.log(qty)
-         
-       
-
-    
+        function addTowishlistFromCart(item,index){
+            let wishedCartItem = item;
+            let uniqueId = item.id;
+            let count = 0;
+            for(let i = 0; i < wish_Data_cart.length ; i++){
+              if(uniqueId == wish_Data_cart[i].id) alert("Item already exists in Wish List");
+              else count++;
+            }  
+            if(count == wish_Data_cart.length){
+                wish_Data_cart.push(wishedCartItem);
+                localStorage.setItem("product_wishlist",JSON.stringify(wish_Data_cart));
+                alert("Item added to Wish List !! Successfully")  
+           }   
+        }    
 </script>
  
