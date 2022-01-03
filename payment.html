@@ -188,11 +188,11 @@
            padding: 10px;
            width: 30%;
        }
-        #month
+        #month_card
         {
             display: flex;
         }
-        #month >input
+        #month_card >input
         {
             margin: 5px;
             padding: 10px;
@@ -244,12 +244,12 @@
                     <div id = "nameon">
                         <input type="text" placeholder="Name on card">
                         <div id = "cardno">
-                            <input type="text" placeholder="Card number">
-                            <input type="password" placeholder="CVV">
+                            <input id="card" type="number" placeholder="Card number" oninput ="checkCard()">
+                            <input id="cvv" type="password" placeholder="CVV" oninput ="checkcvv()">
                         </div>
-                        <div id="month">
-                               <input type="text" placeholder="Expiry MM">
-                        <input type="text"  placeholder="Expiry YY">
+                        <div id="month_card">
+                               <input id="month" type="text" placeholder="Expiry MM" oninput ="checkmonth()">
+                        <input id="year"  placeholder="Expiry YY" oninput ="checkyear()">
                         </div>
                      
                         
@@ -328,29 +328,69 @@
     shipping.innerHTML = "Rs 50"
     ordertotal.innerHTML = data[3]
     yousave.innerHTML   =data[4]
-   
-    
+      
     var ordertotal = document.getElementById("bu");
-    
-     
+      
     var data = JSON.parse(localStorage.getItem("arr"));
     console.log(data)
  
     ordertotal.innerHTML = `PAY ₹${data[3]}`
-     
-    
-    document.getElementById("bu").addEventListener("click",function(){
-        window.location.href="suc.html";
-    })
-            
+                
     document.getElementById("html").addEventListener('click', function (event) {
     if (event.target && event.target.matches("input[type='radio']")) {
          alert("Your Will Pay On Delivery")
          window.location.href = "suc.html"
     }
 });
-       
+          
+</script>
+
+ <script>
+var month = null ;
+var year = null ;
+var card = null;
+var cvv = null ;
+
+function checkCard(){
+    let cardNum = document.querySelector("#card").value ;
+    card = cardNum;
+    if(cardNum.length > 16) {
+        alert("Please enter valid card number");
+        card = "";
+    }
+}
+
+function checkmonth(){
+    let m = document.querySelector("#month").value;
+    month = Number(m) ;
+    if(m.length > 2 || month > 12) alert("Please enter valid month")
+}
+
+function checkyear(){
+    let y = document.querySelector("#year").value;
+    year = Number(y) ;
+    if( y.length > 4) alert("Please enter valid year");
+    else if(y.length == 4 && year < 2022) alert("Card validity expired");
+}
+
+function checkcvv(){
+    let cv = document.querySelector("#cvv").value;
+    cvv = cv ;
+    if( cv.length > 3) {
+        alert("CVV must be only 3 digits");
+        cvv = "";
+    }
+}
+
+console.log(card, month , year, cvv);
 
     
-</script>
+    document.getElementById("bu").addEventListener("click",function(){
+        if(card.length==16 && month<=12 && year> 2021 && cvv.length ==3){ 
+                    alert("Payment Successful! ");
+                    window.location.href="suc.html";
+        } else alert ("Please enter valid")
+       
+    })
+ </script>
  

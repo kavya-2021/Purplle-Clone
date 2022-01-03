@@ -21,7 +21,7 @@
 
 
         <div id="To_Be_hidden">
-            <div id="t_Center"> 
+            <div style="border: 2.3px solid black" id="t_Center"> 
                 <img id="t_Center_img" src="https://cdn1.iconfinder.com/data/icons/website-internet/48/website_-_female_user-512.png" alt="Female" title="Female" class="loaded">  
             </div>
             <div id="To_give_Name">
@@ -276,8 +276,6 @@
 //     localStorage.setItem("product_wishlist",JSON.stringify(dataMyOwn));
 
     let wish_Data = JSON.parse(localStorage.getItem("product_wishlist")) || [];
-
-    console.log(wish_Data);
     ShowWishProduct(wish_Data);
 
     let cartArray = JSON.parse(localStorage.getItem("cartItems")) || [];
@@ -285,9 +283,7 @@
 function ShowWishProduct(wish_Data){
          wishDiv.innerHTML="";
     wish_Data.map(function(wish,index){
-        console.log(wish);
-        console.log((wish.price * (1-wish.discount))) 
-
+      
         let masterDiv = document.createElement("div");
         masterDiv.setAttribute("id","wish_MasterDiv");
 
@@ -381,8 +377,6 @@ function addingtoCartFromWish(wish,index,cartArray){
  }
 
  function removeFromCartFromWish(wish,index){
-     console.log(wish);
-     console.log(index);
      wish_Data.splice(index, 1);
      localStorage.setItem("product_wishlist",JSON.stringify(wish_Data));
      ShowWishProduct(wish_Data)
@@ -413,7 +407,7 @@ function showBeautyProfile(){
 
     let image = document.createElement("img");
     image.setAttribute("id","beauty_wish");
-    image.src = "https://cdn-icons.flaticon.com/png/512/2763/premium/2763368.png?token=exp=1639824986~hmac=11fe51047d052d3e7cf26d7667a78dc2"
+    image.src = "https://cdn-icons.flaticon.com/png/512/2763/premium/2763368.png?token=exp=1640445747~hmac=7d83a5c43b8452ffedaa2824b1c5f7e2"
 
     let beautyBtn = document.createElement("button");
     beautyBtn.setAttribute("id","to_beauty");
@@ -463,6 +457,7 @@ function showThatprodfromWish(wish){
     window.location.href = "productDetails.html";
 }
 
+let orders = JSON.parse(localStorage.getItem("Ordered"));
 
 function ShowWishOrders(){
     wishDiv.innerHTML = "";
@@ -473,20 +468,19 @@ function ShowWishOrders(){
 
     let image = document.createElement("img");
     image.setAttribute("id","ordersFrom_wish_delivery");
-    image.src = "https://cdn-icons.flaticon.com/png/512/3855/premium/3855480.png?token=exp=1639828139~hmac=f3f5b4af68cac68370677ad71b10fb40";
+    image.src = "";
 
     wishDiv.append(h3tag,image);
+
+    console.log(orders);
 }
+
 </script>
 
 <script type="module">
     import nav from './comp/navjs.js';
-
-    console.log(nav)
     var div = document.getElementById("thatDiv");
-
     div.innerHTML = nav();
-
 </script>
 
 
