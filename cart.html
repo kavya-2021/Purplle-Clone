@@ -206,10 +206,16 @@
 
     // getting data from local
 
+<<<<<<< Updated upstream
     var cartItem = document.getElementById("cartItem");
     var data = JSON.parse(localStorage.getItem("cartItems"));
     let wish_Data_cart = JSON.parse(localStorage.getItem("product_wishlist")) || [];
     console.log(data)
+=======
+    // var cartItem = document.getElementById("cartItem");
+    // var data = JSON.parse(localStorage.getItem("cartItems"));
+    // console.log(data)
+>>>>>>> Stashed changes
     
     var TotalMrp = document.getElementById("TotalMrp");
     var savingmrp = document.getElementById("savingmrp");
@@ -259,7 +265,11 @@
                 selectQty.setAttribute("id","Quantity")
                
                 selectQty.innerHTML = `<option>1</option><option>2</option><option>3</option><option>4</option>`
+<<<<<<< Updated upstream
                 
+=======
+
+>>>>>>> Stashed changes
                 var divButton = document.createElement("div");
                 divButton.setAttribute("id","divButton")
                 var b1 = document.createElement("button");
@@ -278,7 +288,11 @@
                 }
 
                 divButton.append(b1,dash,b2)
+<<<<<<< Updated upstream
 
+=======
+                
+>>>>>>> Stashed changes
                 QytDiv.append(Qty,selectQty)
                 divDetails.append(QytDiv,divButton)
 
@@ -349,6 +363,10 @@
    
                     }
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
                 div.append(divimage,divDetails,divPriceAndDiscount)
                 cartItem.append(div)
 
